@@ -15,7 +15,7 @@ Ans: Select Name,Class__r.Name from Student__c
 Ans: SELECT Id, Name,(SELECT Name FROM Students__r) FROM Class__c
 
  5. Select all students where class teacher name starts with “S”
-Ans: Select name Student__C where Class__r.ClassTeacher__r.Name like 'S%'
+Ans: Select name Student__C FROM Student__c where Class__r.ClassTeacher__r.Name like 'S%'
 
 
  6. All students where DOB > Year 2000
