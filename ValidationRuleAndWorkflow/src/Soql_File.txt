@@ -19,7 +19,7 @@ Ans: Select name Student__C FROM Student__c where Class__r.ClassTeacher__r.Name 
 
 
  6. All students where DOB > Year 2000
-Ans: Select Name,DOB__c,Sex__c from Student__c where DOB__c > 2000-12-31
+Ans: Select Name,DOB__c,Sex__c from Student__c where CALENDAR_YEAR(DOB__c ) > 2000
 
 
  7. All Leads Where ModifiedDate in current month
