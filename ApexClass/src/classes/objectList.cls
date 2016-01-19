@@ -1,14 +1,14 @@
-public class objectList{
+public class ObjectList{
   
-  public static void getName()
+  public static void getSobjectName ()
   {
-        List<Schema.SObjectType> gd = Schema.getGlobalDescribe().Values();     
-        List<String> objectList = new List<String>();
-        for(Schema.SObjectType f : gd)
+        List<Schema.SObjectType> sObjectTypeList = Schema.getGlobalDescribe().Values();     
+        List<String> sObjectNames = new List<String>();
+        for(Schema.SObjectType sObjectType : sObjectTypeList)
         {
-           System.debug(f.getDescribe().getLabel());
-           objectList.add(f.getDescribe().getLabel());
+           System.debug(sObjectType.getDescribe().getLabel());
+           sObjectNames.add(sObjectType.getDescribe().getLabel());
         }
-      System.debug(objectList);
+      	System.debug(sObjectNames);
    }
 }
