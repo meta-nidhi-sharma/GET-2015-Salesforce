@@ -1,39 +1,26 @@
 public class OpportunityUpdateSchedule implements Schedulable{
     
-    public static void execute(SchedulableContext sc){       
-        DateTime d = DateTime.Now();
-        Datetime lastMonthDate = d.addDays(-30) ;
-        System.debug(lastMonthDate);
-        String[] toAddresses = new String[]{};
-        for(Opportunity ol : [Select id, Owner.email From Opportunity where LastModifiedDate < :lastMonthDate]){
-            System.debug(ol.Owner.email);
-   		    toAddresses.add(ol.Owner.email);
+    public static void execute(SchedulableContext  sc)
+    {       
+        DateTime todayDate = DateTime.Now();
+        Datetime lastMonthDate = todayDate.addDays(-30) ;
+        List<Id> targetIdList = new List<Id>();
+        for(Opportunity opportunity : [Select id, Owner.id From Opportunity where LastModifiedDate > :lastMonthDate])
+        {
+   		    targetIdList.add(opportunity.Owner.id);
         }
-        if(toAddresses.size()>0){
-         SendEmail(toAddresses);
+        if(targetIdList.size()>0)
+        {
+        	SendEmail(targetIdList);
         }
     }
     
-    public static void SendEmail(String[] toAddresses) {
-        String subject = 'Opportunity Update Alert';
-        String body = 'Hello, \n This is to inform you that you have not updated your opportunity record for 1 month.\n\nThanks';
-        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-        
-        mail.setToAddresses(toAddresses);
-        mail.setSubject(subject);
-        mail.setPlainTextBody(body);
-        Messaging.SendEmailResult[] results = Messaging.sendEmail(
-                                 new Messaging.SingleEmailMessage[] { mail });
-         Boolean sendResult = true;
-        for (Messaging.SendEmailResult res : results) {
-            if (res.isSuccess()) {
-                System.debug('Email sent successfully');
-            }
-            else {
-                sendResult = false;
-                System.debug('The following errors occurred: ' + res.getErrors());                 
-            }
-    }
- 
-}
+    public static void SendEmail(List<Id> targetIdList) 
+    {
+        Messaging.MassEmailMessage mail = new Messaging.MassEmailMessage();
+        mail.setTargetObjectIds(targetIdList);
+        mail.setTemplateID('00X28000000MVVR');
+        mail.setSaveAsActivity(false);
+        Messaging.sendEmail(new Messaging.MassEmailMessage[] {mail});   
+	}
 }
