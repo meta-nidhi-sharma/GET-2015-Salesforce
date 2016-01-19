@@ -7,5 +7,5 @@
         <members>Workbench</members>
         <name>Application</name>
     </types>
-    <version>35.0</version>
+    <version>24.0</version>
 </Package>

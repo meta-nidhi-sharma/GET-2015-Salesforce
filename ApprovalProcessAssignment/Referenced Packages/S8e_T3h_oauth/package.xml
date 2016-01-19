@@ -8,10 +8,6 @@
             <moduleType>connected</moduleType>
             <name>S8e_T3h_oauth</name>
             <types>
-                <members>S8e_T3h_oauth_devConfig</members>
-                <name>ConnectivityDevConfigMetadata</name>
-            </types>
-            <types>
                 <members>sf_com_apps__S8e_T3h_oauth</members>
                 <name>Module</name>
             </types>
@@ -19,5 +15,5 @@
         </module>
     </modules>
     <namespacePrefix>sf_com_apps</namespacePrefix>
-    <version>35.0</version>
+    <version>24.0</version>
 </Package>
