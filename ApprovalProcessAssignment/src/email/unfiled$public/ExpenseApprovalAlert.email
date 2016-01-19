@@ -1,0 +1,7 @@
+Hello {!Expense__c.OwnerFirstName},
+
+This is to notify you about the approval request you have made. Your request status is {!Expense__c.Status__c}. 
+
+Please visit your request status.
+
+Thanks
