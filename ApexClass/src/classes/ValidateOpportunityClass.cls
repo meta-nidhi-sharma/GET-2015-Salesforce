@@ -1,10 +1,13 @@
-public class ValidateOpportunityClass {
-    public static void opportunityUpdateValidation(List<Opportunity> ol){
-        for(Opportunity o : ol){
-            if(o.BillToContact__c!=null && o.Manager__c==null){
-                System.debug(o.BillToContact__c);
-                Contact cc = [select id, name,Account.id from Contact where (id = :o.BillToContact__c AND account.id!=null)];
-                o.Manager__c = cc.Account.id;
+public class OpportunityManagement {
+    public static void PopoulateManagerForOpportunity(List<Opportunity> opportunities)
+    {
+        for(Opportunity opportunity : opportunities)
+        {
+            if(opportunity.BillToContact__c!=null 
+               && opportunity.Manager__c==null)
+            {
+                Contact contact = [select id, name, Account.id from Contact where id = :opportunity.BillToContact__c];
+                opportunity.Manager__c = contact.Account.id;
             }
         }     
     }  
