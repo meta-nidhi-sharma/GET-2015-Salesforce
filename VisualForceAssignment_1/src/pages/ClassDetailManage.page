@@ -1,0 +1,33 @@
+<apex:page standardcontroller="Class__c" extensions="ManageClassController">
+    <apex:form >
+        <apex:pageBlock id="ajaxresult" title="classes">
+            <apex:pageBlockTable value="{!findClasses}" var="classDetail">
+                <apex:column > 
+                    <apex:commandButton value="Edit" action="{!ShowDataToEdit}" rerender="toEdit">
+                     	<apex:param name="idToUpdate" value="{!classDetail.id}" assignTo="{!idToUpdate}"/>
+                    </apex:commandButton>
+                    <apex:commandButton value="Delete" action="{!deleteClass}" rerender="ajaxresult">
+                    	<apex:param name="idToUpdate" value="{!classDetail.id}" assignTo="{!idToUpdate}"/>
+                    </apex:commandButton>
+                    {!classDetail.name}
+                </apex:column>
+                <apex:column >
+                    {!classDetail.Fee__c}
+                </apex:column>
+                <apex:column > 
+                    {!classDetail.Board__c}
+                </apex:column>
+            </apex:pageBlockTable>
+
+       		<apex:outputPanel id="toEdit">
+        	<apex:outputPanel layout="block" rendered="{!displayPopUp}"/>
+            <apex:outputPanel layout="block" rendered="{!displayPopUp}">
+                 <apex:inputField value="{!classToUpdate.name}" />
+                 <apex:inputField value="{!classToUpdate.Fee__c}" />
+                 <apex:inputField value="{!classToUpdate.Board__c}" />
+                <apex:commandButton value="Save Class" action="{!saveClass}" rerender="ajaxresult"/> 
+            </apex:outputPanel>
+        	</apex:outputPanel>
+      	</apex:pageBlock>
+ 	</apex:form>
+</apex:page>
