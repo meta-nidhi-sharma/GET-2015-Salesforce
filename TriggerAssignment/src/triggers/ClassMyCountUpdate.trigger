@@ -6,8 +6,6 @@ trigger ClassMyCountUpdate on Student__c (after insert,after update, after delet
     update classList;
     Map<String,Integer> classMap = new Map<String,Integer>();
     if(Trigger.isInsert){
-        
-        
         for(Student__C student : Trigger.NEW){
             if(classMap.containsKey(student.class__c)){
                 Integer myCount = classMap.get(student.class__c);
@@ -36,7 +34,6 @@ trigger ClassMyCountUpdate on Student__c (after insert,after update, after delet
             }
         }
         List<Class__C> classListToUpdate = [Select id, myCount__c from Class__C where id IN :classMap.keySet()];
-        
         for(Class__C classToUpdate : classListToUpdate){
             classToUpdate.MyCount__c -= classMap.get(classToUpdate.Id);
         }
