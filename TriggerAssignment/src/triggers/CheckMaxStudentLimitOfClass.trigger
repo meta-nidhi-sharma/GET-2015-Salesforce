@@ -1,4 +1,4 @@
-trigger CheckMaxStudentLimitOfClass on Student__c (before insert) {
+trigger CheckMaxStudentLimitOfClass on Student__c (after insert) {
    Set<String> setOfClassId = new Set<String>();
    for(student__C studentObject :Trigger.new){
       setOfClassId.add(studentObject.Class__c);
