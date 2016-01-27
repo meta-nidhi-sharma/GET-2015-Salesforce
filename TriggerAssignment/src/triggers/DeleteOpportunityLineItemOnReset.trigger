@@ -5,7 +5,7 @@ trigger DeleteOpportunityLineItemOnReset on Opportunity (after update) {
 				opportunityIds.Add(objOpportunity.id);
 			}
 		}
-        if (opportunityIds != null && opportunityIds.size() > 0) {
+        if (opportunityIds.size() > 0) {
             List<OpportunityLineItem> opportunityLineItemList = [select id from OpportunityLineItem where Opportunity.Id IN :opportunityIds];
             Database.delete(opportunityLineItemList);
         }
