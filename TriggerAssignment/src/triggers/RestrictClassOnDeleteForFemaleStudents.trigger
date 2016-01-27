@@ -1,4 +1,4 @@
-trigger RestrictClassOnDeleteForFemaleStudents on Class__c (before delete) {
+trigger RestrictClassOnDeleteForFemaleStudents on Class__c (after delete) {
     List<Student__c> studentList = [Select id,class__r.id from Student__c where Sex__c='Female' AND Class__c In :Trigger.old];
     for(Class__c classObject : Trigger.old){
         Integer numberOfFemaleStudents = 0;
