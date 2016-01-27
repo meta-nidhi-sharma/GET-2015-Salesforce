@@ -1,4 +1,4 @@
-trigger RestrictHindiTeacherEntry on Contact (before insert,before update) {
+trigger RestrictHindiTeacherEntry on Contact (after insert,after update) {
     for(Contact contact : Trigger.new)
     {
         if(contact.Subjects__c.Contains('Hindi'))
