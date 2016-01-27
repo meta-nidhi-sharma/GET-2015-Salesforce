@@ -1,4 +1,4 @@
-trigger ClassMyCountUpdate on Student__c (after insert, after delete) {
+trigger ClassMyCountUpdate on Student__c (after insert,after update, after delete) {
     List<Class__C> classList = [Select numberOfStudents__C,myCount__c from class__C];
     for(Class__C classObject : classList){
         classObject.myCount__c=classObject.numberOfStudents__C;
