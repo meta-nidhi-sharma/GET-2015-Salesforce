@@ -27,13 +27,13 @@
                             </apex:commandLink>
                         </apex:column>
                         <apex:column value="{!product.name}"/>
-                        <apex:column >     
-                            <apex:outputField value="{!product.Quantity__c}" label="Quantity">
+                        <apex:column headerValue="Quantity">     
+                            <apex:outputField value="{!product.Quantity__c}">
                                 <apex:inlineEditSupport event="ondblclick"/>
                             </apex:outputField>
                         </apex:column>
-                        <apex:column >
-                            <apex:outputField value="{!product.ESmartPack__c}" label="ESmartPack__c">
+                        <apex:column headerValue="E-SmartPack">
+                            <apex:outputField value="{!product.ESmartPack__c}">
                                 <apex:inlineEditSupport event="ondblclick"/>
                             </apex:outputField> 
                         </apex:column>
