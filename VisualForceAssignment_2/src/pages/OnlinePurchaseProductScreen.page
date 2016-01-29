@@ -52,7 +52,7 @@
             </apex:pageBlockSection>
             
             <apex:pageBlockSection id="PurchaseOrders" title="Purchase Orders" rendered="{!purchaseOrderdisplayPopUp}">
-                <apex:outputText >Thanks, payment successful, your product with order id <b><i>{!order.id}</i></b> will be delievered by {!deliveryDate}</apex:outputText><br/>
+                <apex:outputText >Thanks, payment successful, your product with order id <b><i> <apex:commandLink action="/{!order.id}" value="{!order.id}"/></i></b> will be delievered by {!deliveryDate}.</apex:outputText><br/>
                 <apex:outputText value="{!order.Name__c}"/>
                 <apex:outputText value="{!order.Phone__c}"/>
                 <apex:outputText value="{!order.Address__c}"/>
