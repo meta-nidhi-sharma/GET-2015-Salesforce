@@ -32,8 +32,8 @@
                     
                        
                 </apex:pageBlockSection>
-                <apex:commandButton action="{!setManager1}" value="Save" onclick="CloseWindow();" />
-               <apex:commandButton action="{!clearManager}" value="Clear" onclick="CloseWindow();"  />
+                <apex:commandButton action="{!setManager1}" value="Save" oncomplete="CloseWindow();" />
+               <apex:commandButton action="{!clearManager}" value="Clear" oncomplete="CloseWindow();"  />
                 <apex:commandButton value="Cancel" onclick="window.top.close();" />
             </apex:pageBlock>
     
