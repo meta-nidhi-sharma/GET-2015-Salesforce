@@ -4,7 +4,7 @@ public class JsonConverterController
       
     public JsonConverterController()
     {
-         
+         parseJson();
     }    
     public void parseJson()
     {
