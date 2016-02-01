@@ -1,3 +1,0 @@
-<apex:page controller="JsonConverterController" action="{!parseJson}">
-    {!text1}
-</apex:page>
