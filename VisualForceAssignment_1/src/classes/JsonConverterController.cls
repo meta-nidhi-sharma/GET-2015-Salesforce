@@ -1,6 +1,6 @@
 public class JsonConverterController
 {    
-    public String text1 {get;set;}
+    public String text {get;set;}
       
     public JsonConverterController()
     {
@@ -9,7 +9,7 @@ public class JsonConverterController
     public void parseJson()
     {
         String soql = 'SELECT Name FROM Account LIMIT 5';
-        List<Account> acct = Database.Query(soql); 
-        text1 = JSON.serialize(acct);
+        List<Account> accounts = Database.Query(soql); 
+        text = JSON.serialize(accounts);
     }    
 }
