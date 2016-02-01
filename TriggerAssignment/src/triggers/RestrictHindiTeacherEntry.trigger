@@ -1,9 +1,13 @@
-trigger RestrictHindiTeacherEntry on Contact (after insert,after update) {
-    for(Contact contact : Trigger.new)
+trigger RestrictHindiTeacherEntry on Contact (before insert,before update) {
+    for(Contact contactObject : Trigger.new)
     {
-        if(contact.Subjects__c.Contains('Hindi'))
-        {
-            contact.addError('Hindi teacher is restricted. Please change your subject.');
+        try{
+            if(contactObject.Subjects__c.Contains('Hindi')){
+                contactObject.addError('Hindi teacher Not allowed');
+            }
+        }
+        catch(NullPointerException e){
+            contactObject.addError('Select at least one subject');
         }
     }
 }
