@@ -1,0 +1,37 @@
+<apex:page controller="AccountSearchController" showHeader="false">
+    <apex:form id="accountForm" > 
+        <apex:pageMessages /> 
+        <apex:pageBlock> 
+            <apex:pageBlockSection title="Search accounts by address">
+                Billing City <apex:inputText value="{!billingCity}" id="BillingCity" />
+                Billing State <apex:inputText value="{!billingState}" id="BillingState"/>
+                Billing Country <apex:inputText value="{!billingCountry}" id="BillingCountry"/>
+                <apex:commandButton action="{!searchRecords}" value="Search" id="Search"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection id="accounts" columns="1" title="Accounts">
+           
+                <apex:pageBlocktable value="{!Accounts}" var="account" columns="4"> 
+                    <apex:column value="{!account.name}" headerValue="Name"/>
+                    <apex:column value="{!account.BillingCity}" headerValue="Billing City"/>
+                    <apex:column value="{!account.BillingState}" headerValue="Billing State"/>
+                    <apex:column value="{!account.BillingCountry}" headerValue="Billing Country"/>
+                </apex:pageBlocktable>
+        
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons>
+            <b>Page: </b>{!accountsSetController.PageNumber} of {!totalPages}
+            <apex:commandButton value="First" action="{!accountsSetController.First}"
+                                disabled="{!Not(accountsSetController.HasPrevious)}" rerender="accountForm"/>
+            
+            <apex:commandButton value="Previous" action="{!accountsSetController.Previous}"
+                                disabled="{!Not(accountsSetController.HasPrevious)}" rerender="accountForm"/>
+            
+            <apex:commandButton value="Next" action="{!accountsSetController.Next}"
+                                disabled="{!Not(accountsSetController.HasNext)}" rerender="accountForm"/>
+            
+            <apex:commandButton value="Last" action="{!accountsSetController.Last}"
+                                disabled="{!Not(accountsSetController.HasNext)}" rerender="accountForm"/>
+            </apex:pageBlockButtons> 
+        </apex:pageBlock> 
+    </apex:form> 
+</apex:page>

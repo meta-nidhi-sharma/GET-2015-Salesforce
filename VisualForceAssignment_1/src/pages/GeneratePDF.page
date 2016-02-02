@@ -1,0 +1,36 @@
+<apex:page standardController="Student__c" extensions="AttachPdf" action="{!savePdf}">
+    <apex:form>
+        <apex:pageBlock title="Student Summary">
+            <table border="1">
+                <thead><tr>
+                    <th width="40px"> Name : </th>
+                    <th width="40px">First Name : </th>
+                    <th width="40px">LastName : </th>
+                    <th width="40px">DOB : </th>
+                    <th width="40px">Age : </th>	
+                    <th width="40px">Sex__c : </th>
+                    <th width="40px">Email : </th>
+                    <th width="40px">Married : </th>
+                    <th width="40px">Class : </th>
+                    <th width="40px">WifeName : </th>
+                    </tr>                    
+                </thead>
+                <tbody>
+                    <tr>
+                        <td >Name: {! Student__c.Name}</td>
+                        <td>FirstName: {! Student__c.FirstName__c } </td>
+                        <td> LastName: {! Student__c.LastName__c } </td>
+                        <td> DOB: {! Student__c.DOB__c }</td>
+                        <td>  Age: {! Student__c.Age__c}</td>
+                        <td>  Sex: {! Student__c.Sex__c}</td>
+                        <td>Email: {! Student__c.Email__c}</td>
+                        <td> Married: {! Student__c.Married__c}</td>
+                        <td>Class  : {! Student__c.Class__c}</td>
+                        <td> Spouse Name: {! Student__c.WifeName__c}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </apex:pageBlock> 
+    </apex:form>
+</apex:page>

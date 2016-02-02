@@ -1,0 +1,39 @@
+<apex:page standardcontroller="Class__c" extensions="ManageClassController">
+    <apex:form id="ajaxResult" >
+        <apex:pageBlock id="classDetails">
+            <apex:pageBlockSection title="Manage Classes" columns="1">
+                <apex:pageBlockTable value="{!findClasses}" var="classDetail" columns="5">
+                    <apex:column headerValue="Edit"> 
+                        <apex:commandButton value="Edit" action="{!ShowDataToEdit}" rerender="toEdit">
+                            <apex:param name="idToUpdate" value="{!classDetail.id}" assignTo="{!idToUpdate}"/>
+                        </apex:commandButton>
+                    </apex:column>
+                    <apex:column headerValue="Delete"> 
+                        <apex:commandButton value="Delete" action="{!deleteClass}" rerender="ajaxResult">
+                            <apex:param name="idToUpdate" value="{!classDetail.id}" assignTo="{!idToUpdate}"/>
+                        </apex:commandButton>
+                    </apex:column>
+                    <apex:column headerValue="Class"> 
+                        {!classDetail.name}
+                    </apex:column>
+                    <apex:column headerValue="Fee">
+                        {!classDetail.Fee__c}
+                    </apex:column>
+                    <apex:column headerValue="Board"> 
+                        {!classDetail.Board__c}
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:pageBlock id="toEdit">
+            <apex:outputPanel layout="block" rendered="{!displayPopUp}">
+                <apex:pageBlockSection title="Edit Class Details">     
+                    <apex:inputField value="{!classToUpdate.name}" label="Class"/>
+                    <apex:inputField value="{!classToUpdate.Fee__c}" label="Fee"/>
+                    <apex:inputField value="{!classToUpdate.Board__c}" label="Board"/><br/>
+                    <apex:commandButton value="Save" action="{!saveClass}" style="float:right;" rerender="ajaxResult"/>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

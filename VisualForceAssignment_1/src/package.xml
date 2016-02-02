@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>ManageClassController</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>ClassDetailManage</members>
+        <members>ContactRecordTypeHeader</members>
+        <members>CreateOrEditClassPage</members>
+        <members>CreateOrEditStudentPage</members>
+        <members>OpportunityScreen</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>Class__c</members>
+        <members>Contact</members>
+        <members>Opportunity</members>
+        <members>Student__c</members>
+        <name>CustomObject</name>
+    </types>
+    <version>15.0</version>
+</Package>
