@@ -69,7 +69,7 @@ public class ShoppingCartController {
         productSetController = new ApexPages.StandardSetController(Database.getQueryLocator(query));
         productSetController.setPageSize(recordsPerPage);
         dtotalPages = (productSetController.getResultSize() / productSetController.getPageSize());
-        dtotalPages = Math.floor(dtotalPages) + ((Math.mod(productSetController.getResultSize(), recordsPerPage)>0) ? 1 : 0);
+        dtotalPages = dtotalPages + ((Math.mod(productSetController.getResultSize(), recordsPerPage)>0) ? 1 : 0);
         totalPages = Integer.valueOf(dtotalPages);
     }
     //To add selected product in cart
