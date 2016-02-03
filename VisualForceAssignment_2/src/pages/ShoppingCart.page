@@ -1,4 +1,4 @@
-<apex:page controller="TestingClass" showHeader="false">
+<apex:page controller="TestingClass">
     <apex:form id="shoppingCartForm">
         <apex:pageBlock id="ShoppingCart">
             Welcome {!$User.FirstName} <br/><br/>
