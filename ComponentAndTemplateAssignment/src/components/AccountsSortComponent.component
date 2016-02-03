@@ -1,0 +1,43 @@
+<apex:component controller="AccountsSortController">
+    <apex:form id="AccountSortingForm">
+        <apex:pageBlock title="Accounts">
+            ----Sort accounts by clicking on header in ascending(▲) or descending(▼) order----
+            <p/>
+            <!--grid to show accounts in tabular format-->
+            <apex:panelGrid columns="2" id="myGrid" border="2" width="100%">
+                <!--Header1-->
+                <apex:commandLink value="Account Name {!IF(sortType='ASC','▼','▲')}" action="{!sort}" reRender="AccountSortingForm">
+                    <apex:param name="columnToSort" value="Name" assignTo="{!sortingColumn}"/>
+                    <apex:param name="sortType" value="{!IF(sortType='ASC','DESC','ASC')}" assignTo="{!sortType}"/>
+                </apex:commandLink>
+                <!--Header2-->
+                <apex:commandLink value="Billing City {!IF(sortType='ASC','▼','▲')}" action="{!sort}" reRender="AccountSortingForm">
+                    <apex:param name="columnToSort" value="BillingCity" assignTo="{!sortingColumn}"/>
+                    <apex:param name="sortType" value="{!IF(sortType='ASC','DESC','ASC')}" assignTo="{!sortType}"/>
+                </apex:commandLink>
+                <!--Accounts Name Section-->
+                <apex:repeat value="{!accounts}" var="account">
+                    <apex:outputLink value="/{!account.id}">
+                        <apex:outputField value="{!account.Name}"/><br/>
+                    </apex:outputLink>
+                </apex:repeat>
+                <!--Accounts BillingCity section-->
+                <apex:repeat value="{!accounts}" var="account">
+                    <apex:outputField value="{!account.BillingCity}"/><br/>
+                </apex:repeat>
+            </apex:panelGrid>
+            <!-- To show current page and pagination -->
+            <apex:pageBlockButtons id="paginationButtonBlock" rendered="{!IF(totalPages>0,true,false)}">
+                <b>Page: </b>{!accountSetController.PageNumber} of {!totalPages}
+                <apex:commandButton value="First" action="{!accountSetController.First}"
+                                    disabled="{!Not(accountSetController.HasPrevious)}" rerender="AccountSortingForm"/>
+                <apex:commandButton value="Previous" action="{!accountSetController.Previous}"
+                                    disabled="{!Not(accountSetController.HasPrevious)}" rerender="AccountSortingForm"/>
+                <apex:commandButton value="Next" action="{!accountSetController.Next}"
+                                    disabled="{!Not(accountSetController.HasNext)}" rerender="AccountSortingForm"/>
+                <apex:commandButton value="Last" action="{!accountSetController.Last}"
+                                    disabled="{!Not(accountSetController.HasNext)}" rerender="AccountSortingForm"/>
+            </apex:pageBlockButtons> 
+        </apex:pageBlock>
+    </apex:form>
+</apex:component>
