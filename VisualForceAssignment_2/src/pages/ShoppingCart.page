@@ -1,0 +1,87 @@
+<apex:page controller="TestingClass">
+    <apex:form id="shoppingCartForm">
+        <apex:pageBlock id="ShoppingCart">
+            Welcome {!$User.FirstName} <br/><br/>
+            <!-- To show order details -->
+            <apex:pageBlockSection id="PurchaseOrders" title="Purchase Orders" rendered="{!purchaseOrderdisplayPopUp}">
+                <apex:outputText >Thanks, payment successful, your product with order id <b><i> <apex:commandLink action="/{!order.id}" value="{!order.id}"/></i></b> will be delievered by {!deliveryDate}.</apex:outputText><br/>
+                <apex:outputText value="{!order.Name__c}"/>
+                <apex:outputText value="{!order.Phone__c}"/>
+                <apex:outputText value="{!order.Address__c}"/>
+                <apex:outputText value="{!order.TotalPrice__c}"/>
+            </apex:pageBlockSection>
+            <!-- To fill delivery address details -->
+            <apex:pageBlockSection id="PersonalInformation" title="Your Info" rendered="{!personalInfoDisplayPopUp}">
+                <apex:inputField value="{!order.Name__c}" required="true"/>
+                <apex:inputField value="{!order.Address__c}" label="Address : " required="true"/>
+                <apex:inputField value="{!order.Phone__c}" label="Telephone : " required="true"/>
+                <apex:outputField value="{!order.TotalPrice__c}"/>
+                <apex:commandButton action="{!pay}" value="Pay" style="float:right;"/> 
+            </apex:pageBlockSection>
+            <!-- To show products added to cart -->
+            <apex:pageBlockSection id="PurchaseOrderLineItems" title="View your cart" columns="1" rendered="{!cartDisplayPopUp}">
+                <apex:outputPanel rendered="{!purchaseOrderLineItemsdisplayPopUp}">
+                    <apex:pageBlockTable value="{!productsInCart}" var="product" columns="5">
+                        <apex:column >
+                            <apex:commandLink value="Remove From Cart" action="{!removeFromCart}" reRender="PurchaseOrderLineItems">
+                                <apex:param name="selectedProductId" value="{!product.id}" assignTo="{!selectedProductId}"/>
+                            </apex:commandLink>
+                        </apex:column>
+                        <apex:column value="{!product.name}"/>
+                        <apex:column headerValue="Quantity">     
+                            <apex:outputField value="{!product.Quantity__c}">
+                                <apex:inlineEditSupport event="ondblclick"/>
+                            </apex:outputField>
+                        </apex:column>
+                        <apex:column headerValue="E-SmartPack">
+                            <apex:outputField value="{!product.ESmartPack__c}">
+                                <apex:inlineEditSupport event="ondblclick"/>
+                            </apex:outputField> 
+                        </apex:column>
+                        <apex:column value="{!product.UnitPrice__c}"/>
+                    </apex:pageBlockTable>
+                    <apex:commandButton value="Proceed To Pay" action="{!proceedToPay}" style="float:right;"/>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+            <!-- To show categories -->
+            <apex:pageBlockSection id="categorySection" title="Select Category" rendered="{!categoryDisplayPopUp}">
+                <apex:selectList value="{!selectedCategory}">
+                    <apex:selectOptions value="{!Categories}"/>
+                </apex:selectList><p/>
+                <apex:commandButton value="Search" action="{!searchByCategory}" rerender="ShoppingCart"/>
+            </apex:pageBlockSection>
+            <!-- To show available products -->
+            <apex:pageBlockSection id="Products" title="Products" columns="1" rendered="{!productsPopUp}">
+                Category : {!If(selectedCategory!=null,selectedCategory,'All')}
+                <apex:pageblockTable value="{!products}" var="product" columns="5" rendered="{!IF(totalPages>0,true,false)}" id="productsDisplayPopUp">
+                    <apex:column value="{!product.id}"/>
+                    <apex:column value="{!product.name}"/>
+                    <apex:column value="{!product.Price__c}"/>
+                    <apex:column >
+                        <apex:commandLink action="/{!product.id}" value="View Details"/>
+                    </apex:column>
+                    <apex:column >
+                        <apex:commandButton value="Add To Cart" action="{!addToCart}" reRender="PurchaseOrderLineItems">
+                            <apex:param name="selectedProductId" value="{!product.id}" assignTo="{!selectedProductId}"/>
+                        </apex:commandButton>
+                    </apex:column>
+                </apex:pageblockTable>
+                <apex:messages rendered="{!IF(totalPages>0,false,true)}" style="text-align:center;">
+                    ---No Records To Show---
+                </apex:messages>
+            </apex:pageBlockSection>
+            <!-- To show current page and pagination -->
+            <apex:pageBlockButtons id="paginationButtonBlock" rendered="{!IF(totalPages>0,true,false)}">
+                <b>Page: </b>{!productSetController.PageNumber} of {!totalPages}
+                <apex:commandButton value="First" action="{!productSetController.First}"
+                                    disabled="{!Not(productSetController.HasPrevious)}" rerender="ShoppingCart"/>
+                <apex:commandButton value="Previous" action="{!productSetController.Previous}"
+                                    disabled="{!Not(productSetController.HasPrevious)}" rerender="ShoppingCart"/>
+                <apex:commandButton value="Next" action="{!productSetController.Next}"
+                                    disabled="{!Not(productSetController.HasNext)}" rerender="ShoppingCart"/>
+                <apex:commandButton value="Last" action="{!productSetController.Last}"
+                                    disabled="{!Not(productSetController.HasNext)}" rerender="ShoppingCart"/>
+            </apex:pageBlockButtons> 
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
