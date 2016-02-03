@@ -12,10 +12,10 @@ public class ShoppingCartController {
     public Boolean categoryDisplayPopUp {get;set;}
     public boolean noRecordMessagePopUp{get; set;} 
     public boolean personalInfoDisplayPopUp {get; set;}  
-    public Integer totalPages {get;set;}
     public String selectedCategory {get;set;}
     public ApexPages.StandardSetController productSetController {get; set;}
     public String query;
+    public Integer totalPages {get;set;}
     Decimal dtotalPages;
     Integer recordsPerPage = 5;   
     //list of products
@@ -48,14 +48,6 @@ public class ShoppingCartController {
         options.add(new SelectOption('Others','Others'));
         return options;
     }
-    //To get product selected by user
-   // public String getSelectedCategory() {
-      //  return selectedCategory;
-  //  }
-    //To set selected product value
-   // public void setSelectedCategory(String selectedCategory) {
-   //     this.selectedCategory = selectedCategory;
-   // }
     //To search products by on the basis of selected category
     public void searchByCategory() {
         retrieveProducts();
