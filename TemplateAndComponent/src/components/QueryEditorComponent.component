@@ -1,0 +1,47 @@
+<apex:component controller="ComponentController">
+    <apex:form id="queryEditor">
+        <apex:pageBlock id="queryEditorBlock"> 
+            <!-- To provide section heading -->
+            <apex:sectionHeader title="Query Editor"/><hr/>
+             <!-- Section to write query -->
+            <apex:pageBlockSection id="queryBlock" rendered="{!queryBlockDisplayPopUp}">
+                <apex:inputTextarea value="{!query}" label=" --Enter SOQL here--" style="width:500px;"/>
+                <apex:commandButton action="{!execute}" value="Execute" reRender="queryEditorBlock"/>
+            </apex:pageBlockSection>
+             <!-- Section to display query results -->
+            <apex:pageBlockSection id="queryResult" title="Query Results" rendered="{!queryResultBlockDisplayPopUp}" columns="1">
+                <!-- To display query results message -->
+                <apex:pageMessages id="showmsg"></apex:pageMessages>
+                <apex:pageBlockTable value="{!sObjects}" var="object" columns="{!fieldLabels.size}" >
+                    <apex:repeat value="{!fieldLabels}" var="field" >
+                        <br/> <apex:column >
+                        <apex:facet name="header">
+                            <apex:commandLink value="{!field} {!IF(sortType='ASC','▼','▲')}" action="{!sort}" reRender="queryEditorBlock">
+                                <apex:param name="columnToSort" value="{!field}" assignTo="{!sortingColumn}"/>
+                                <apex:param name="sortType" value="{!IF(sortType='ASC','DESC','ASC')}" assignTo="{!sortType}"/>
+                            </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputText value="{!object[field]}"/>
+                        </apex:column>
+                    </apex:repeat>
+                </apex:pageBlockTable>
+                <apex:commandButton value="Back" action="{!back}" style="float:right;"/>
+            </apex:pageBlockSection>
+            <!-- Section to display pagination buttons -->
+            <apex:pageBlockButtons id="paginationButtonBlock" rendered="{!IF(totalPages>0,true,false)}" location="bottom">
+                <b>Page: </b>{!sObjectSetController.PageNumber} of {!totalPages}
+                <apex:commandButton value="First" action="{!sObjectSetController.First}"
+                                    disabled="{!Not(sObjectSetController.HasPrevious)}" rerender="queryEditorBlock"/>
+                <apex:commandButton value="Previous" action="{!sObjectSetController.Previous}"
+                                    disabled="{!Not(sObjectSetController.HasPrevious)}" rerender="queryEditorBlock"/>
+                <apex:commandButton value="Next" action="{!sObjectSetController.Next}"
+                                    disabled="{!Not(sObjectSetController.HasNext)}" rerender="queryEditorBlock"/>
+                <apex:commandButton value="Last" action="{!sObjectSetController.Last}"
+                                    disabled="{!Not(sObjectSetController.HasNext)}" rerender="queryEditorBlock"/>
+                <!-- To display quick Go -->
+                <apex:input type="number" value="{!pageNumber}" style="width:40px;" />
+                <apex:commandButton action="{!redirectToPage}" value=" Quick Go" rerender="queryEditorBlock"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:component>

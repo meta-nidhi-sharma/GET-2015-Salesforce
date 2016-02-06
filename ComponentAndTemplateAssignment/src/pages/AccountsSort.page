@@ -1,4 +1,0 @@
-<apex:page showHeader="false" sidebar="false">
-    <!--Using Component (AccountsSortComponent)-->
-    <c:AccountsSortComponent />
-</apex:page>
