@@ -66,7 +66,7 @@ public class ComponentController {
         fieldLabels = null;
         queryResultBlockDisplayPopUp = false;
     }
-    //To retrieve records using query locator providing default sording based on Id in ascending order
+    //To retrieve records using query locator providing default sorting based on Id in ascending order
     public void retrieveRecords(){
         String sortingQuery = query + ' ORDER BY ' + sortingColumn  + ' ' + sortType+'';
         sObjectSetController = new ApexPages.StandardSetController(Database.getQueryLocator(sortingQuery));
