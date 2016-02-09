@@ -1,4 +1,0 @@
-<apex:page showHeader="false" sidebar="false" docType="html-5.0">
-    <!--Using Component (QueryEditorComponent)-->
-    <c:QueryEditorComponent />
-</apex:page>
