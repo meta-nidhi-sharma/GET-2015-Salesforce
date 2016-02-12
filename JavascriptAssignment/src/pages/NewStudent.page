@@ -1,0 +1,38 @@
+<!--On click of new student button in calss detail page a this page will be displayed in new window with two input fields
+first name and last name for student and on click of save button this student will be added to this class-->
+<apex:page standardController="Class__c" docType="html-5.0" showHeader="false" sidebar="false">
+    <script src="/soap/ajax/11.0/connection.js"></script>
+    <script src="/soap/ajax/11.0/apex.js"></script>
+    <script>
+    //To add new student in this class
+    function addNewStudent(){
+        sforce.connection.sessionId = "{!$Api.Session_ID}";
+        //Retrieving inputted values to set in student record
+        var firstName = document.getElementById("firstName").value;
+        var lastName = document.getElementById("lastName").value
+        var student= new sforce.SObject("Student__c");
+        student.firstName__c = firstName;
+        student.LastName__c = lastName;
+        student.class__c="{!class__c.id}";
+        //Creting student record in database
+        result = sforce.connection.create([student]);
+        if(result[0].getBoolean("success")){
+            alert('Student successfully created');
+        }else{
+            alert('Error : '+result)
+        }
+        To close window
+        window.top.close(); 
+    }
+    </script>
+    <apex:form >
+        <apex:sectionHeader title="New Student" />
+        <apex:pageBlock title="Add new student in {!Class__c} class">
+            <apex:pageBlockSection columns="2">
+                <b><super>*</super>First Name :</b> <input title="First Name" id="firstName" required="true"/><br/>
+                <b><super>*</super>Last Name :</b> <input title="Last Name" id="lastName" required="true"/>   
+                <apex:commandButton value="Save" oncomplete="addNewStudent() ;"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
