@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <fields>
+        <fullName>Age__c</fullName>
+        <formula>ABS(( TODAY() -  DOB__c)/365)</formula>
+        <label>Age</label>
+        <precision>18</precision>
+        <scale>0</scale>
+        <type>Number</type>
+    </fields>
+    <fields>
+        <fullName>Class__c</fullName>
+        <label>Class</label>
+        <referenceTo>Class__c</referenceTo>
+        <relationshipLabel>Students</relationshipLabel>
+        <relationshipName>Students</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+    </fields>
+    <fields>
+        <fullName>DOB__c</fullName>
+        <description>Date Of Birth</description>
+        <inlineHelpText>Date Of Birth</inlineHelpText>
+        <label>DOB</label>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <label>Email</label>
+        <type>Email</type>
+    </fields>
+    <fields>
+        <fullName>FirstName__c</fullName>
+        <label>FirstName</label>
+        <length>15</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>GeneratePDF__c</fullName>
+        <formula>HYPERLINK(&quot;apex/GeneratePDF?id=&quot;+ Id, &quot;PDF&quot;, &quot;_blank&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GeneratePDF</label>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>LastName__c</fullName>
+        <label>LastName</label>
+        <length>15</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>Married__c</fullName>
+        <defaultValue>false</defaultValue>
+        <label>Married</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Sex__c</fullName>
+        <label>Sex</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Male</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Female</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>WifeName__c</fullName>
+        <label>WifeName</label>
+        <length>15</length>
+        <type>Text</type>
+    </fields>
+    <label>Student</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>MaleStudents</fullName>
+        <columns>FirstName__c</columns>
+        <columns>LastName__c</columns>
+        <columns>Class__c</columns>
+        <columns>Age__c</columns>
+        <columns>Sex__c</columns>
+        <columns>Email__c</columns>
+        <columns>Married__c</columns>
+        <columns>WifeName__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Sex__c</field>
+            <operation>equals</operation>
+            <value>Male</value>
+        </filters>
+        <label>MaleStudents</label>
+    </listViews>
+    <nameField>
+        <displayFormat>STU-{0000}</displayFormat>
+        <label>Student Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Students</pluralLabel>
+    <searchLayouts>
+        <listViewButtons>DeleteStudents</listViewButtons>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>DateOfBirthValidation</fullName>
+        <active>true</active>
+        <errorConditionFormula>DOB__c &gt; TODAY()</errorConditionFormula>
+        <errorMessage>Date of Birth can not be greater than today</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>DeleteStudents</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Delete Students</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/30.0/connection.js&quot;)} 
+var url = parent.location.href; 
+var records = {!GETRECORDIDS($ObjectType.Student__c)}; 
+if (records[0] == null){ 
+    alert(&quot;Please select at least one record to update.&quot;); 
+} else{ 
+    window.location = &apos;apex/DeleteStudents?recs=&apos;+records.join(); 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Details</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <hasScrollbars>true</hasScrollbars>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>page</linkType>
+        <masterLabel>Details</masterLabel>
+        <openType>newWindow</openType>
+        <page>studentAlertWindow</page>
+        <position>none</position>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>GeneratePDF1</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <linkType>page</linkType>
+        <masterLabel>GeneratePDF1</masterLabel>
+        <openType>replace</openType>
+        <page>GeneratePDF</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>HelloWorld</fullName>
+        <availability>online</availability>
+        <description>Show hello world as alert</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Hello World</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>alert(&apos;Hello World&apos;);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>StudentInfo</fullName>
+        <availability>online</availability>
+        <description>Open a new popup window and show students&apos; name and Class in a table</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Student Info</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>var newWindow = window.open(&quot;&quot;, &quot;studentDetail&quot;, &quot;width=500, height=300&quot;); 
+newWindow.document.write(&quot;&lt;table border=3&gt;&lt;tr&gt;&lt;th width=300&gt;Student Name&lt;/th&gt;&lt;th width=300&gt;Class&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&apos;text-align:center;&apos;&gt;{!Student__c.Name}&lt;/td&gt;&lt;td style=&apos;text-align:center;&apos;&gt;{!Student__c.Class__c}&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&quot;);</url>
+    </webLinks>
+</CustomObject>
