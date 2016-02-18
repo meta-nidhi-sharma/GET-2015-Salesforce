@@ -5,7 +5,7 @@ public class StudentSiteController {
    }
     
    public static  List<SelectOption> options { get{    
-       students = new List<Student__c> ([SELECT Id,Name FROM Student__c]);
+       students = new List<Student__c> ([Select Id,Name From Student__c]);
        options = new List<SelectOption> ();
        for(Student__c student : students) {
            options.add(new SelectOption(student.Id,student.Name));
@@ -15,7 +15,7 @@ public class StudentSiteController {
    
    @RemoteAction
    public static Student__c getStudent( Id selectedId ){
-       studentInfo = [SELECT Id, FirstName__c, LastName__c, Class__r.Name  FROM Student__c WHERE Id =:selectedId] ;
+       studentInfo = [Select Id, FirstName__c, LastName__c, Class__r.Name  From Student__c WHERE Id =:selectedId] ;
        return studentInfo ;
    }  
 }
