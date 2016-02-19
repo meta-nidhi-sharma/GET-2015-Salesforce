@@ -32,7 +32,7 @@
             <!-- Page Block Section to  select the Student-->
             <apex:pageBlockSection id="studentsListSection">
                 <apex:selectList size="1" label="Select Student Name"
-                                 id="SelectedStudentName" onchange="getStudentDetail()">
+                                 id="selectedStudentName" onchange="getStudentDetail()">
                     <apex:selectOptions value="{!options}"></apex:selectOptions>
                 </apex:selectList>
             </apex:pageBlockSection>
