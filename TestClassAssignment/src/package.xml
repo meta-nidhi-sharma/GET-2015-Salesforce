@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>AccountSearchController</members>
+        <members>ObjectsNameList</members>
+        <members>ShoppingCartController</members>
+        <members>Stack</members>
+        <members>StudentAndClassDetails</members>
+        <members>TestAccountSearchController</members>
+        <members>TestObjectsNameList</members>
+        <members>TestOpportunityTrigger</members>
+        <members>TestShoppingCartController</members>
+        <members>TestStack</members>
+        <members>TestStudentAndClassDetails</members>
+        <members>TestStudentCountInClass</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>ClassMyCountUpdate</members>
+        <members>OpportunityTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+    <version>15.0</version>
+</Package>
