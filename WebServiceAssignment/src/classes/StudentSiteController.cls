@@ -1,12 +1,11 @@
 public class StudentSiteController {
     public static List<Student__c> students{ get; private set;}
     public static Student__c studentInfo{ get; set;}
-    public StudentSiteController (){
-    }
     //To get list of student names
     public static  List<SelectOption> options { get{    
         students = new List<Student__c> ([SELECT Id,Name FROM Student__c]);
         options = new List<SelectOption> ();
+        options.add(new SelectOption('0', 'Select'));
         for(Student__c student : students) {
             options.add(new SelectOption(student.Id,student.Name));
         }
