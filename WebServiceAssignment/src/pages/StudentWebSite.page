@@ -1,0 +1,42 @@
+<apex:page controller="StudentSiteController">
+    <script type="text/javascript">
+    function getStudentDetail() {
+        // student Id which has been selected
+        var selectedStudentID = document.getElementById("{!$Component.studentForm.studentsListBlock.studentsListSection.SelectedStudentName}").value;
+        // Java Script function to invoke the Remote Action
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.StudentSiteController.getStudent}',selectedStudentID, 
+            function(result, event){
+                // Checking for the Status being True
+                if (event.status) {
+                    // Showing student details in form of table
+                    document.getElementById("myStudents").innerHTML = '<table><tr><td > <b>First Name : </b>  </td><td>'+result.FirstName__c+'</td></tr>'+
+                        '<tr><td width="500px"><b>Last Name : </b></td><td width="500px">'+result.LastName__c+'</td></tr>'+
+                        '<tr><td width="500px"><b>Class : </b></td><td width="500px">'+result.Class__r.Name+'</td></tr></table>';
+                } 
+                // If exception occurs, Showing message
+                else if (event.type === 'exception') {
+                    document.getElementById("myStudents").innerHTML = '<h2>Warning : Select student from the list</h2>';
+                } 
+            } 
+        );
+    }
+    </script>
+    <apex:sectionHeader title="Student Information"/>   
+    <apex:form id="studentForm">
+        <apex:pageBlock id="studentsListBlock" title="Select student to see details">
+            <!-- Page Block Section to  select the Student-->
+            <apex:pageBlockSection id="studentsListSection">
+                <apex:selectList size="1" label="Select Student Name"
+                                 id="selectedStudentName" onchange="getStudentDetail()">
+                    <apex:selectOptions value="{!options}"></apex:selectOptions>
+                </apex:selectList>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    <apex:pageBlock>
+        <!-- table to Show the Details -->  
+        <div id='myStudents'>
+        </div>
+        </apex:pageBlock>
+</apex:page>
